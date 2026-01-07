@@ -49,7 +49,7 @@ export default function ItemsPage() {
               value={totalAmount}
               onChange={(e) => handleTotalAmountChange(e.target.value)}
               placeholder="10000"
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg text-gray-900 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="mt-2 text-xs text-gray-500">
               ※飲み物代は個人負担、食事代は均等割りで計算されます
@@ -216,7 +216,7 @@ function PersonCard({ personId, personName }: { personId: string; personName: st
               value={label}
               onChange={(e) => setLabel(e.target.value)}
               placeholder="品目名を入力"
-              className="w-full rounded-lg border border-gray-300 px-4 py-2 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           )}
         </div>
@@ -232,7 +232,7 @@ function PersonCard({ personId, personName }: { personId: string; personName: st
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               placeholder="500"
-              className="w-full rounded-lg border border-gray-300 px-4 py-2 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="flex items-end">
