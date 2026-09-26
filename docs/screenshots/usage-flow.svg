@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980" role="img" aria-labelledby="title desc">
+  <title id="title">割り勘会計アプリの操作フロー</title>
+  <desc id="desc">参加者登録、明細入力、計算結果までの4画面を並べた操作フロー</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eff6ff"/><stop offset="1" stop-color="#e0e7ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#64748b" flood-opacity=".18"/>
+    </filter>
+    <style>
+      .font{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;fill:#111827}
+      .muted{fill:#64748b}.blue{fill:#2563eb}.small{font-size:14px}.label{font-size:16px;font-weight:700}.title{font-size:22px;font-weight:800}
+      .panel{fill:#fff;stroke:#dbe3ef;stroke-width:2}.field{fill:#fff;stroke:#cbd5e1;stroke-width:2}.button{fill:#2563eb}.pill{fill:#dbeafe}.green{fill:#dcfce7}
+    </style>
+  </defs>
+  <rect width="1400" height="980" fill="url(#bg)"/>
+  <text x="70" y="62" class="font" font-size="32" font-weight="800">割り勘会計アプリ　操作フロー</text>
+  <text x="70" y="94" class="font muted" font-size="17">飲み物代は個人負担、食事代は均等割りで計算</text>
+
+  <!-- 1 -->
+  <g transform="translate(70 135)" filter="url(#shadow)">
+    <rect width="600" height="365" rx="18" class="panel"/>
+    <rect width="600" height="54" rx="18" fill="#f8fafc"/>
+    <circle cx="34" cy="27" r="17" class="button"/><text x="28" y="33" fill="white" font-size="16" font-weight="800">1</text>
+    <text x="62" y="33" class="font label">参加者を登録</text>
+    <text x="35" y="94" class="font title">参加者入力</text><text x="35" y="120" class="font muted small">参加者の名前を入力してください</text>
+    <text x="35" y="157" class="font label">参加者名</text><rect x="35" y="169" width="405" height="47" rx="8" class="field"/><text x="52" y="199" class="font muted">例: 田中さん</text>
+    <rect x="452" y="169" width="112" height="47" rx="8" class="button"/><text x="482" y="199" fill="white" class="font" font-size="16" font-weight="700">追加</text>
+    <text x="35" y="253" class="font label">参加者リスト (3名)</text>
+    <rect x="35" y="268" width="529" height="34" rx="7" fill="#f8fafc"/><text x="52" y="290" class="font">田中さん</text><text x="520" y="290" class="font" fill="#dc2626">削除</text>
+    <rect x="35" y="308" width="529" height="34" rx="7" fill="#f8fafc"/><text x="52" y="330" class="font">佐藤さん　　鈴木さん</text>
+  </g>
+
+  <!-- 2 -->
+  <g transform="translate(730 135)" filter="url(#shadow)">
+    <rect width="600" height="365" rx="18" class="panel"/>
+    <rect width="600" height="54" rx="18" fill="#f8fafc"/>
+    <circle cx="34" cy="27" r="17" class="button"/><text x="28" y="33" fill="white" font-size="16" font-weight="800">2</text>
+    <text x="62" y="33" class="font label">レジ合計を入力</text>
+    <text x="35" y="94" class="font title">飲み物・食事入力</text><text x="35" y="120" class="font muted small">各参加者が注文したものを入力してください</text>
+    <text x="35" y="157" class="font label">レジ合計金額</text><rect x="35" y="169" width="529" height="47" rx="8" class="field"/><text x="52" y="199" class="font">10,000</text>
+    <text x="35" y="245" class="font title">田中さん</text><text x="470" y="241" class="font muted small">小計</text><text x="510" y="264" class="font blue" font-size="20" font-weight="800">1,000円</text>
+    <rect x="35" y="278" width="240" height="38" rx="8" class="button"/><text x="119" y="303" fill="white" class="font" font-size="15" font-weight="700">飲み物</text>
+    <rect x="285" y="278" width="240" height="38" rx="8" fill="#f1f5f9"/><text x="386" y="303" class="font" font-size="15" font-weight="700">食事</text>
+    <rect x="35" y="326" width="529" height="24" rx="6" fill="#f8fafc"/><text x="52" y="344" class="font muted small">ビール　　500円　　　＋　　　追加</text>
+  </g>
+
+  <!-- 3 -->
+  <g transform="translate(70 555)" filter="url(#shadow)">
+    <rect width="600" height="365" rx="18" class="panel"/>
+    <rect width="600" height="54" rx="18" fill="#f8fafc"/>
+    <circle cx="34" cy="27" r="17" class="button"/><text x="28" y="33" fill="white" font-size="16" font-weight="800">3</text>
+    <text x="62" y="33" class="font label">注文内容を入力</text>
+    <text x="35" y="94" class="font title">参加者ごとの明細</text><text x="35" y="120" class="font muted small">品目を選んで金額を追加します</text>
+    <text x="35" y="157" class="font label">佐藤さん</text><text x="470" y="157" class="font muted small">小計</text><text x="510" y="180" class="font blue" font-size="20" font-weight="800">1,200円</text>
+    <rect x="35" y="198" width="168" height="38" rx="8" class="button"/><text x="88" y="223" fill="white" class="font" font-size="15" font-weight="700">飲み物</text>
+    <rect x="213" y="198" width="168" height="38" rx="8" fill="#f1f5f9"/><text x="266" y="223" class="font" font-size="15" font-weight="700">食事</text>
+    <rect x="35" y="253" width="100" height="34" rx="17" class="pill"/><text x="64" y="275" class="font blue small" font-weight="700">ハイボール</text>
+    <rect x="145" y="253" width="80" height="34" rx="17" class="pill"/><text x="170" y="275" class="font blue small" font-weight="700">ビール</text>
+    <rect x="35" y="305" width="350" height="42" rx="8" class="field"/><text x="52" y="332" class="font">金額　400</text><rect x="402" y="305" width="120" height="42" rx="8" class="button"/><text x="438" y="332" fill="white" class="font" font-size="15" font-weight="700">追加</text>
+  </g>
+
+  <!-- 4 -->
+  <g transform="translate(730 555)" filter="url(#shadow)">
+    <rect width="600" height="365" rx="18" class="panel"/>
+    <rect width="600" height="54" rx="18" fill="#f8fafc"/>
+    <circle cx="34" cy="27" r="17" class="button"/><text x="28" y="33" fill="white" font-size="16" font-weight="800">4</text>
+    <text x="62" y="33" class="font label">結果を共有</text>
+    <text x="35" y="94" class="font title">計算結果</text><text x="35" y="120" class="font muted small">飲み物代は個人負担、食事代は均等割り</text>
+    <rect x="35" y="145" width="245" height="55" rx="9" fill="#eff6ff"/><text x="52" y="168" class="font muted small">レジ合計</text><text x="52" y="190" class="font" font-size="20" font-weight="800">10,000円</text>
+    <rect x="295" y="145" width="245" height="55" rx="9" class="green"/><text x="312" y="168" class="font muted small">食事代（1人分）</text><text x="312" y="190" class="font" font-size="20" font-weight="800">2,400円</text>
+    <rect x="35" y="220" width="505" height="48" rx="9" fill="#f8fafc"/><text x="52" y="251" class="font" font-size="18" font-weight="700">田中さん</text><text x="430" y="251" class="font blue" font-size="20" font-weight="800">3,400円</text>
+    <rect x="35" y="280" width="505" height="42" rx="8" class="button"/><text x="209" y="307" fill="white" class="font" font-size="15" font-weight="700">全員分まとめてコピー</text>
+    <text x="35" y="350" class="font muted small">コピーしてグループチャットで共有できます</text>
+  </g>
+</svg>

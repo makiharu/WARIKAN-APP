@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 割り勘会計アプリ
 
-## Getting Started
+飲み会や食事会の会計を、参加者ごとの飲み物代と全員で食べた食事代に分けて計算するWebアプリです。
+参加者と注文内容、レジの合計金額を入力するだけで、それぞれの支払額を確認できます。
 
-First, run the development server:
+![割り勘会計アプリの操作フロー](docs/screenshots/usage-flow.svg)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## こんなときに使えます
+
+- 飲み会で、飲んだ量が人によって違うとき
+- 食事会で、飲み物は個別・料理は均等に割り勘したいとき
+- 会計後に、各参加者へ支払額をすぐ共有したいとき
+
+## 主な機能
+
+- 参加者の追加・削除
+- 飲み物・食事の品目と金額の入力
+- レジ合計金額をもとにした自動計算
+- 参加者ごとの結果コピー、全員分まとめてコピー
+- 入力内容の同一タブ内での一時保存
+
+## 使い方
+
+### 1. 参加者を登録する
+
+トップ画面の「始める」を押し、参加者の名前を入力して「追加」を押します。
+全員を登録したら「次へ」を押してください。
+
+### 2. レジ合計金額を入力する
+
+「飲み物・食事入力」画面で、実際のレジ合計金額を入力します。
+
+### 3. 注文内容を入力する
+
+参加者ごとに、カテゴリ（飲み物／食事）、品目、金額を入力して「追加」を押します。
+よく使う品目はプリセットボタンから選択でき、「その他」から任意の品目名も入力できます。
+
+### 4. 支払額を計算する
+
+入力が終わったら「計算する」を押します。参加者ごとの支払額と内訳が表示されます。
+
+### 5. 結果を共有する
+
+「この人の結果をコピー」で個別の金額をコピーできます。
+「全員分まとめてコピー」を使うと、参加者全員の支払額をまとめてコピーできます。
+
+## 計算ルール
+
+- 飲み物代は、注文した本人の個人負担です。
+- 食事代は、レジ合計から全員分の飲み物代を引いた金額を参加者全員で均等に負担します。
+- 食事代の1人分に端数が出た場合は四捨五入します。
+
+```text
+食事代（1人分） = (レジ合計 - 飲み物代の合計) / 参加者数
+各人の支払額 = その人の飲み物代 + 食事代（1人分）
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## データの保存について
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+入力内容はブラウザの`sessionStorage`に保存されます。同じタブであれば画面を移動・再読み込みしても入力内容を引き継げますが、別のタブや端末とは共有されません。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 開発環境
 
-## Learn More
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS
 
-To learn more about Next.js, take a look at the following resources:
+## 起動方法
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-## Deploy on Vercel
+## テスト・ビルド
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm test
+npm run build
+npm run start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercelへのデプロイ手順は[DEPLOY.md](DEPLOY.md)を参照してください。
