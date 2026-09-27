@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useApp } from "../context/AppContext";
-import { calculateDrinkCost, calculateWithTotal } from "../utils/calculations";
+import { calculateDrinkCost, calculateItemPrice, calculateWithTotal } from "../utils/calculations";
 
 export default function ResultPage() {
   const { state, resetApp } = useApp();
@@ -18,10 +18,13 @@ export default function ResultPage() {
   }
 
   // 新しい計算方法で各人の支払額を計算
-  const paymentMap = calculateWithTotal(state.persons, state.totalAmount);
+  const paymentMap = calculateWithTotal(state.persons, state.totalAmount, state.priceInputMode);
 
   // 全員の飲み物代の合計を計算
-  const totalDrinkCost = state.persons.reduce((sum, person) => sum + calculateDrinkCost(person), 0);
+  const totalDrinkCost = state.persons.reduce(
+    (sum, person) => sum + calculateDrinkCost(person, state.priceInputMode),
+    0
+  );
 
   // 食事代を計算
   const foodCost = state.totalAmount - totalDrinkCost;
@@ -81,7 +84,7 @@ export default function ResultPage() {
 
         <div className="space-y-3">
           {state.persons.map((person) => {
-            const drinkCost = calculateDrinkCost(person);
+            const drinkCost = calculateDrinkCost(person, state.priceInputMode);
             const payment = paymentMap.get(person.id) || 0;
             const drinkItems = person.items.filter(item => item.category === "drink");
 
@@ -113,7 +116,12 @@ export default function ResultPage() {
                           <div key={item.id} className="flex justify-between text-sm">
                             <span className="text-gray-700">{item.label}</span>
                             <span className="font-medium text-gray-900">
-                              {item.price.toLocaleString()}円
+                              {calculateItemPrice(item, state.priceInputMode).toLocaleString()}円
+                              {state.priceInputMode === "taxExcluded" && (
+                                <span className="ml-1 text-xs text-gray-500">
+                                  （税抜 {item.price.toLocaleString()}円）
+                                </span>
+                              )}
                             </span>
                           </div>
                         ))}

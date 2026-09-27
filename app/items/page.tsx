@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useApp } from "../context/AppContext";
-import { Category, PRESET_LABELS } from "../types";
+import { Category, PRESET_LABELS, PriceInputMode } from "../types";
+import { calculateItemPrice } from "../utils/calculations";
 
 export default function ItemsPage() {
   const { state, dispatch } = useApp();
@@ -24,6 +25,10 @@ export default function ItemsPage() {
     }
   };
 
+  const handlePriceInputModeChange = (mode: PriceInputMode) => {
+    dispatch({ type: "SET_PRICE_INPUT_MODE", payload: { mode } });
+  };
+
   const handleCalculate = () => {
     router.push("/result");
   };
@@ -40,6 +45,38 @@ export default function ItemsPage() {
           </div>
 
           <div className="border-t border-gray-200 pt-4">
+            <fieldset className="mb-4">
+              <legend className="mb-2 block text-sm font-medium text-gray-700">価格の入力方式</legend>
+              <div className="grid grid-cols-2 gap-2">
+                <label className={`cursor-pointer rounded-lg border px-4 py-3 text-center font-semibold transition-colors ${state.priceInputMode === "taxExcluded" ? "border-blue-600 bg-blue-600 text-white" : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"}`}>
+                  <input
+                    type="radio"
+                    name="priceInputMode"
+                    value="taxExcluded"
+                    checked={state.priceInputMode === "taxExcluded"}
+                    onChange={() => handlePriceInputModeChange("taxExcluded")}
+                    className="sr-only"
+                  />
+                  税抜き価格
+                </label>
+                <label className={`cursor-pointer rounded-lg border px-4 py-3 text-center font-semibold transition-colors ${state.priceInputMode === "taxIncluded" ? "border-blue-600 bg-blue-600 text-white" : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"}`}>
+                  <input
+                    type="radio"
+                    name="priceInputMode"
+                    value="taxIncluded"
+                    checked={state.priceInputMode === "taxIncluded"}
+                    onChange={() => handlePriceInputModeChange("taxIncluded")}
+                    className="sr-only"
+                  />
+                  税込み価格
+                </label>
+              </div>
+              <p className="mt-2 text-xs text-gray-500">
+                {state.priceInputMode === "taxExcluded"
+                  ? "入力金額に消費税10%を加えて表示・計算します"
+                  : "入力金額をそのまま表示・計算します"}
+              </p>
+            </fieldset>
             <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700 mb-2">
               レジ合計金額
             </label>
@@ -129,7 +166,10 @@ function PersonCard({ personId, personName }: { personId: string; personName: st
     }
   };
 
-  const total = person.items.reduce((sum, item) => sum + item.price, 0);
+  const total = person.items.reduce(
+    (sum, item) => sum + calculateItemPrice(item, state.priceInputMode),
+    0
+  );
 
   return (
     <div className="rounded-2xl bg-white p-6 shadow-xl">
@@ -224,7 +264,7 @@ function PersonCard({ personId, personName }: { personId: string; personName: st
         <div className="flex gap-2">
           <div className="flex-1 space-y-2">
             <label htmlFor={`price-${personId}`} className="block text-sm font-medium text-gray-700">
-              金額
+              金額（{state.priceInputMode === "taxExcluded" ? "税抜き" : "税込み"}）
             </label>
             <input
               type="number"
@@ -258,7 +298,8 @@ function PersonCard({ personId, personName }: { personId: string; personName: st
                 <div className="flex-1">
                   <p className="font-medium text-gray-900">{item.label}</p>
                   <p className="text-sm text-gray-600">
-                    {item.category === "drink" ? "飲み物" : "食事"} ・ {item.price.toLocaleString()}円
+                    {item.category === "drink" ? "飲み物" : "食事"} ・ {calculateItemPrice(item, state.priceInputMode).toLocaleString()}円
+                    {state.priceInputMode === "taxExcluded" && `（税抜 ${item.price.toLocaleString()}円）`}
                   </p>
                 </div>
                 <div className="flex gap-2">

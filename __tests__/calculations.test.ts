@@ -1,4 +1,4 @@
-import { calculateDrinkCost, totalCost, calculateWithTotal } from '../app/utils/calculations';
+import { calculateDrinkCost, calculateItemPrice, totalCost, calculateWithTotal } from '../app/utils/calculations';
 import { Person } from '../app/types';
 
 describe('計算ロジックのテスト', () => {
@@ -31,6 +31,29 @@ describe('計算ロジックのテスト', () => {
       { id: 'i8', label: 'ソフトドリンク', price: 300, category: 'drink' },
     ],
   };
+
+  describe('価格入力方式', () => {
+    it('税抜き価格に10%を適用し、1円単位で四捨五入する', () => {
+      expect(calculateItemPrice({ id: 'tax', label: 'ビール', price: 500, category: 'drink' }, 'taxExcluded')).toBe(550);
+      expect(calculateItemPrice({ id: 'tax-round', label: '料理', price: 333, category: 'food' }, 'taxExcluded')).toBe(366);
+    });
+
+    it('税込み価格は入力値をそのまま使う', () => {
+      expect(calculateItemPrice({ id: 'included', label: 'ビール', price: 550, category: 'drink' }, 'taxIncluded')).toBe(550);
+    });
+
+    it('500円のビール2杯を税抜き入力すると1,100円になる', () => {
+      const person: Person = {
+        id: 'tax-person',
+        name: 'Aさん',
+        items: [
+          { id: 'beer-1', label: 'ビール', price: 500, category: 'drink' },
+          { id: 'beer-2', label: 'ビール', price: 500, category: 'drink' },
+        ],
+      };
+      expect(calculateDrinkCost(person, 'taxExcluded')).toBe(1100);
+    });
+  });
 
   describe('calculateDrinkCost', () => {
     it('飲み物代のみを正しく計算する', () => {

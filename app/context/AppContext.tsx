@@ -12,6 +12,7 @@ import {
 const initialState: AppState = {
   persons: [],
   totalAmount: 0,
+  priceInputMode: "taxIncluded",
 };
 
 // Reducer関数
@@ -89,12 +90,23 @@ const appReducer = (state: AppState, action: Action): AppState => {
       };
     }
 
+    case "SET_PRICE_INPUT_MODE": {
+      return {
+        ...state,
+        priceInputMode: action.payload.mode,
+      };
+    }
+
     case "RESET_STATE": {
       return initialState;
     }
 
     case "LOAD_STATE": {
-      return action.payload;
+      return {
+        ...action.payload,
+        // 既存の保存データには価格入力方式がないため、税込みとして扱う
+        priceInputMode: action.payload.priceInputMode ?? "taxIncluded",
+      };
     }
 
     default:
